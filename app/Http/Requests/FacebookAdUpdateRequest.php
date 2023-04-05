@@ -25,7 +25,7 @@ class FacebookAdUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:255', 'string'],
-            'content' => ['required', 'max:255', 'string'],
+            'content' => ['required', 'string'],
             'type' => ['required', 'max:255', 'string'],
             'status' => ['required', 'max:255', 'string'],
             'reach' => ['nullable', 'numeric'],
