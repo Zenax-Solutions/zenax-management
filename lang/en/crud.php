@@ -90,6 +90,7 @@ return [
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'order_status' => 'Order Status',
+            'payment_proof' => 'Payment Proof',
         ],
     ],
 

@@ -20,6 +20,7 @@ class Orders extends Model
         'end_date',
         'order_status',
         'user_id',
+        'payment_proof',
     ];
 
     protected $searchableFields = ['*'];

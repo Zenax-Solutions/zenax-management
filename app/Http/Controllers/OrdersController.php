@@ -8,6 +8,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrdersStoreRequest;
 use App\Http\Requests\OrdersUpdateRequest;
+use Illuminate\Support\Facades\Storage;
 
 class OrdersController extends Controller
 {
@@ -52,6 +53,12 @@ class OrdersController extends Controller
         $this->authorize('create', Orders::class);
 
         $validated = $request->validated();
+
+        if ($request->hasFile('payment_proof')) {
+            $validated['payment_proof'] = $request
+                ->file('payment_proof')
+                ->store('public');
+        }
 
         $orders = Orders::create($validated);
 
@@ -102,6 +109,16 @@ class OrdersController extends Controller
         $validated = $request->validated();
 
         $orders->update($validated);
+
+        if ($request->hasFile('payment_proof')) {
+            if ($orders->payment_proof) {
+                Storage::delete($orders->payment_proof);
+            }
+
+            $validated['payment_proof'] = $request
+                ->file('payment_proof')
+                ->store('public');
+        }
 
         return redirect()
             ->route('all-orders.edit', $orders)

@@ -9,46 +9,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
                 <x-slot name="title">
-                    <a href="{{ route('all-orders.index') }}" class="mr-4"
-                        ><i class="mr-1 icon ion-md-arrow-back"></i
-                    ></a>
+                    <a href="{{ route('all-orders.index') }}" class="mr-4"><i
+                            class="mr-1 icon ion-md-arrow-back"></i></a>
                 </x-slot>
 
-                <x-form
-                    method="PUT"
-                    action="{{ route('all-orders.update', $orders) }}"
-                    class="mt-4"
-                >
+                <x-form method="PUT" action="{{ route('all-orders.update', $orders) }}" class="mt-4" has-files>
                     @include('app.all_orders.form-inputs')
 
                     <div class="mt-10">
-                        <a
-                            href="{{ route('all-orders.index') }}"
-                            class="button"
-                        >
+                        <a href="{{ route('all-orders.index') }}" class="button">
                             <i
                                 class="
                                     mr-1
                                     icon
                                     ion-md-return-left
                                     text-primary
-                                "
-                            ></i>
+                                "></i>
                             @lang('crud.common.back')
                         </a>
 
-                        <a
-                            href="{{ route('all-orders.create') }}"
-                            class="button"
-                        >
+                        <a href="{{ route('all-orders.create') }}" class="button">
                             <i class="mr-1 icon ion-md-add text-primary"></i>
                             @lang('crud.common.create')
                         </a>
 
-                        <button
-                            type="submit"
-                            class="button button-primary float-right"
-                        >
+                        <button type="submit" class="button button-primary float-right">
                             <i class="mr-1 icon ion-md-save"></i>
                             @lang('crud.common.update')
                         </button>

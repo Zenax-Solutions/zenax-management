@@ -13,18 +13,11 @@
                         <div class="md:w-1/2">
                             <form>
                                 <div class="flex items-center w-full">
-                                    <x-inputs.text
-                                        name="search"
-                                        value="{{ $search ?? '' }}"
-                                        placeholder="{{ __('crud.common.search') }}"
-                                        autocomplete="off"
-                                    ></x-inputs.text>
+                                    <x-inputs.text name="search" value="{{ $search ?? '' }}"
+                                        placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
 
                                     <div class="ml-1">
-                                        <button
-                                            type="submit"
-                                            class="button button-primary"
-                                        >
+                                        <button type="submit" class="button button-primary">
                                             <i class="icon ion-md-search"></i>
                                         </button>
                                     </div>
@@ -33,13 +26,10 @@
                         </div>
                         <div class="md:w-1/2 text-right">
                             @can('create', App\Models\Orders::class)
-                            <a
-                                href="{{ route('all-orders.create') }}"
-                                class="button button-primary"
-                            >
-                                <i class="mr-1 icon ion-md-add"></i>
-                                @lang('crud.common.create')
-                            </a>
+                                <a href="{{ route('all-orders.create') }}" class="button button-primary">
+                                    <i class="mr-1 icon ion-md-add"></i>
+                                    @lang('crud.common.create')
+                                </a>
                             @endcan
                         </div>
                     </div>
@@ -73,106 +63,89 @@
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.all_orders.inputs.order_status')
                                 </th>
+                                <th class="px-4 py-3 text-left">
+                                    @lang('crud.all_orders.inputs.payment_proof')
+                                </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
                             @forelse($allOrders as $orders)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-left">
-                                    {{ optional($orders->customer)->name ?? '-'
-                                    }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ optional($orders->user)->name ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-right">
-                                    {{ $orders->discount ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $orders->total ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $orders->payment_status ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $orders->start_date ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $orders->end_date ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $orders->order_status ?? '-' }}
-                                </td>
-                                <td
-                                    class="px-4 py-3 text-center"
-                                    style="width: 134px;"
-                                >
-                                    <div
-                                        role="group"
-                                        aria-label="Row Actions"
-                                        class="
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-left">
+                                        {{ optional($orders->customer)->name ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ optional($orders->user)->name ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-right">
+                                        {{ $orders->discount ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $orders->total ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $orders->payment_status ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $orders->start_date ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $orders->end_date ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $orders->order_status ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        @if ($orders->payment_proof)
+                                            <a href="{{ \Storage::url($orders->payment_proof) }}" target="blank"><i
+                                                    class="mr-1 icon ion-md-download"></i>&nbsp;Download</a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3 text-center" style="width: 134px;">
+                                        <div role="group" aria-label="Row Actions"
+                                            class="
                                             relative
                                             inline-flex
                                             align-middle
-                                        "
-                                    >
-                                        @can('update', $orders)
-                                        <a
-                                            href="{{ route('all-orders.edit', $orders) }}"
-                                            class="mr-1"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="button"
-                                            >
-                                                <i
-                                                    class="icon ion-md-create"
-                                                ></i>
-                                            </button>
-                                        </a>
-                                        @endcan @can('view', $orders)
-                                        <a
-                                            href="{{ route('all-orders.show', $orders) }}"
-                                            class="mr-1"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="button"
-                                            >
-                                                <i class="icon ion-md-eye"></i>
-                                            </button>
-                                        </a>
-                                        @endcan @can('delete', $orders)
-                                        <form
-                                            action="{{ route('all-orders.destroy', $orders) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
-                                        >
-                                            @csrf @method('DELETE')
-                                            <button
-                                                type="submit"
-                                                class="button"
-                                            >
-                                                <i
-                                                    class="
+                                        ">
+                                            @can('update', $orders)
+                                                <a href="{{ route('all-orders.edit', $orders) }}" class="mr-1">
+                                                    <button type="button" class="button">
+                                                        <i class="icon ion-md-create"></i>
+                                                    </button>
+                                                </a>
+                                                @endcan @can('view', $orders)
+                                                <a href="{{ route('all-orders.show', $orders) }}" class="mr-1">
+                                                    <button type="button" class="button">
+                                                        <i class="icon ion-md-eye"></i>
+                                                    </button>
+                                                </a>
+                                                @endcan @can('delete', $orders)
+                                                <form action="{{ route('all-orders.destroy', $orders) }}" method="POST"
+                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="button">
+                                                        <i
+                                                            class="
                                                         icon
                                                         ion-md-trash
                                                         text-red-600
-                                                    "
-                                                ></i>
-                                            </button>
-                                        </form>
-                                        @endcan
-                                    </div>
-                                </td>
-                            </tr>
+                                                    "></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </div>
+                                    </td>
+                                </tr>
                             @empty
-                            <tr>
-                                <td colspan="9">
-                                    @lang('crud.common.no_items_found')
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="9">
+                                        @lang('crud.common.no_items_found')
+                                    </td>
+                                </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
