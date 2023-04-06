@@ -58,7 +58,7 @@ return [
 
     'all_customer_details' => [
         'name' => 'All Customer Details',
-        'index_title' => 'AllCustomerDetails List',
+        'index_title' => 'Customer Details List',
         'new_title' => 'New Customer details',
         'create_title' => 'Create CustomerDetails',
         'edit_title' => 'Edit CustomerDetails',
@@ -76,7 +76,7 @@ return [
 
     'all_orders' => [
         'name' => 'All Orders',
-        'index_title' => 'AllOrders List',
+        'index_title' => 'All Orders List',
         'new_title' => 'New Orders',
         'create_title' => 'Create Orders',
         'edit_title' => 'Edit Orders',

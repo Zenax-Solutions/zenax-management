@@ -85,16 +85,41 @@
                                         {{ $orders->total ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $orders->payment_status ?? '-' }}
+                                        @if ($orders->payment_status == 1)
+                                            <span
+                                                class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">No
+                                                payment</span>
+                                        @elseif ($orders->payment_status == 2)
+                                            <span
+                                                class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Advance
+                                                Payment</span>
+                                        @elseif ($orders->payment_status == 3)
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">Full
+                                                Payment</span>
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $orders->start_date ?? '-' }}
+                                        {{ date_format($orders->start_date, 'Y/m/d') ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $orders->end_date ?? '-' }}
+                                        {{ date_format($orders->end_date, 'Y/m/d') ?? '-' }}
                                     </td>
                                     <td class="px-4 py-3 text-left">
-                                        {{ $orders->order_status ?? '-' }}
+                                        @if ($orders->order_status == 'pending')
+                                            <span
+                                                class="bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Pending</span>
+                                        @elseif ($orders->order_status == 'content_delay')
+                                            <span
+                                                class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">Content
+                                                Delay</span>
+                                        @elseif ($orders->order_status == 'hold')
+                                            <span
+                                                class="bg-yellow-100text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">Hold</span>
+                                        @elseif ($orders->order_status == 'done')
+                                            <span
+                                                class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">Done</span>
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3 text-left">
                                         @if ($orders->payment_proof)

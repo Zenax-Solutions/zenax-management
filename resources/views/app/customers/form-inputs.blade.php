@@ -47,7 +47,7 @@
             <option value="whatsapp" {{ $selected == 'whatsapp' ? 'selected' : '' }}>WhatsApp</option>
             <option value="messenger" {{ $selected == 'messenger' ? 'selected' : '' }}>Messenger</option>
             <option value="instagram" {{ $selected == 'instagram' ? 'selected' : '' }}>Instagram</option>
-            <option value="text" {{ $selected == 'text' ? 'selected' : '' }}>Nomal Text</option>
+            <option value="text" {{ $selected == 'text' ? 'selected' : '' }}>Other</option>
         </x-inputs.select>
     </x-inputs.group>
 </div>
